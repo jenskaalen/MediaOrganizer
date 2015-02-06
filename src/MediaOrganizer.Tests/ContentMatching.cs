@@ -40,6 +40,13 @@ namespace MediaOrganizer.Tests
         }
 
         [TestMethod]
+        public void Min_size_matcher()
+        {
+            var matcher = new SizeMatcher(1);
+            Assert.IsTrue(matcher.Match("FileSamples//SizeSample.txt"));
+        }
+
+        [TestMethod]
         public void Composite_matcher()
         {
             var matcher =  new CompositeMatcher(
