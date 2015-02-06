@@ -24,7 +24,7 @@ namespace MediaOrganizer.Tests
         public void Show_content_matching()
         {
             var show = "The Truman Show";
-            var matcher = new ShowMatcher(show, ".mkv|.png");
+            var matcher = new ShowMatcher(show, new RegexContentMatcher(".mkv|.png"));
 
             Assert.IsFalse(matcher.Match(@"C:\temp\The.Walking.Dead S01E03.mkv"));
             Assert.IsTrue(matcher.Match(@"C:\temp\The.Truman.Show[S01E03] EclipseSwag 720p.mkv"));

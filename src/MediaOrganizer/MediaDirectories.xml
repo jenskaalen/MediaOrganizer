@@ -8,8 +8,8 @@
     </SearchDirectories>
     <ContentDirectory>F:\ShowTest\SaveDirectories</ContentDirectory>
     <MatchPatterns>
-      <!-- ShowMatcher must include "show" attribute and can include "regexPattern" attribute -->
-      <ShowMatcher show="Dexter" regexPattern=".mkv"></ShowMatcher>
+      <!-- ShowMatcher must include "show" attribute and can include "regexPattern" and "minKbSize" attribute -->
+      <ShowMatcher show="Dexter" regexPattern=".mkv" minKbSize="400000"></ShowMatcher>
     </MatchPatterns>
   </Handler>
 </Handlers>

@@ -34,14 +34,24 @@ namespace MediaOrganizer.Scanner
         private static ShowMatcher GetShowMatcher(XElement element)
         {
             string show = element.Attribute("show").Value;
+
+            var matchers = new List<IContentMatcher>();
+
             string regexPattern = element.Attribute("regexPattern") != null
                 ? element.Attribute("regexPattern").Value
                 : null;
 
-            if (String.IsNullOrEmpty(regexPattern))
-                return new ShowMatcher(show, show);
-            else
-                return new ShowMatcher(show, regexPattern);
+            string minKbSize = element.Attribute("minKbSize") != null
+                ? element.Attribute("minKbSize").Value
+                : null;
+
+            if (!String.IsNullOrEmpty(minKbSize))
+                matchers.Add(new SizeMatcher(long.Parse(minKbSize)));
+
+            if (!String.IsNullOrEmpty(regexPattern))
+                matchers.Add(new RegexContentMatcher(regexPattern));
+
+            return new ShowMatcher(show, matchers);
         }
     }
 }

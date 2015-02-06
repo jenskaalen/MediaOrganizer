@@ -12,25 +12,31 @@ namespace MediaOrganizer.Scanner.Matching
     public class ShowMatcher : IContentMatcher
     {
         public string Show { get; private set; }
+        internal List<IContentMatcher> ContentMatchers { get; set; } 
         private readonly RegexContentMatcher _regexMatcher;
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="show">Name of the show and the directory</param>
-        /// <param name="regexPattern">Matching pattern</param>
-        public ShowMatcher(string show, string regexPattern)
+        public ShowMatcher(string show)
         {
-            _regexMatcher = new RegexContentMatcher(regexPattern);
             Show = show;
+            ContentMatchers = new List<IContentMatcher>();
+            var nameMatcher = new ShowNameMatcher(show);
+            ContentMatchers.Add(nameMatcher);
+        }
+
+        public ShowMatcher(string show, params IContentMatcher[] matchers) : this(show)
+        {
+            ContentMatchers.AddRange(matchers);
+        }
+
+        public ShowMatcher(string show, IEnumerable<IContentMatcher> matchers)
+            : this(show)
+        {
+            ContentMatchers.AddRange(matchers);
         }
 
         public bool Match(string fullFilename)
         {
-            if (!_regexMatcher.Match(fullFilename))
-                return false;
-
-            return MatchesAgainstShow(fullFilename);
+            return ContentMatchers.All(matcher => matcher.Match(fullFilename));
         }
 
         protected bool MatchesAgainstShow(string fullFilename)
