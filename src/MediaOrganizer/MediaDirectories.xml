@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<!-- Each handler must have a type attribute, a name element, at least one SearchDirectories -> SearchDirectory element, a ContentDirectory element and at least one MatchPatterns -> MatchPattern -->
+<Handlers>
+  <Handler type="ShowMediaHandler">
+    <Name>Shows</Name>
+    <SearchDirectories>
+      <SearchDirectory>F:\ShowTest\Content</SearchDirectory>
+    </SearchDirectories>
+    <ContentDirectory>F:\ShowTest\SaveDirectories</ContentDirectory>
+    <MatchPatterns>
+      <!-- ShowMatcher must include "show" attribute and can include "regexPattern" attribute -->
+      <ShowMatcher show="Dexter" regexPattern=".mkv"></ShowMatcher>
+    </MatchPatterns>
+  </Handler>
+</Handlers>
