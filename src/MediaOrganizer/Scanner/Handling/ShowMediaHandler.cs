@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -76,14 +77,22 @@ namespace MediaOrganizer.Scanner.Handling
 
                 foreach (ShowMatcher matcher in _showMatches)
                 {
-                    var matchedFiles = files.
-                        Where(file => matcher.Match(file)
-                        && RegisteredMedia.All(registeredMedia => registeredMedia.OriginalFilename != file)
-                        ).ToList();
-                    string show = matcher.Show;
+                    try
+                    {
+                        var matchedFiles = files.
+                                        Where(file => matcher.Match(file)
+                                        && RegisteredMedia.All(registeredMedia => registeredMedia.OriginalFilename != file)
+                                        ).ToList();
 
-                    if (matchedFiles.Any())
-                        RenameAndCopyFiles(matchedFiles, show);
+                        string show = matcher.Show;
+
+                        if (matchedFiles.Any())
+                            RenameAndCopyFiles(matchedFiles, show);
+                    }
+                    catch (Exception ex)
+                    {
+                        Logging.Log.Error("Failure running matches against ShowMatcher for " + matcher.Show, ex);
+                    }
                 }
             }
 
@@ -133,6 +142,8 @@ namespace MediaOrganizer.Scanner.Handling
 
                 string newFile = Path.Combine(ContentDirectory, show);
                 string copiedFile = FileActions.Copy(checkedFile, newFile);
+
+                Logging.Log.DebugFormat("Found match for {0} on show {1} and copied to {2}", checkedFile, show, newFile);
 
                 RegisteredMedia.Add(
                     new MediaFile(filename, copiedFile)

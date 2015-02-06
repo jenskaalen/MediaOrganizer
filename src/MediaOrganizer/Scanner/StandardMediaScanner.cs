@@ -53,23 +53,30 @@ namespace MediaOrganizer.Scanner
 
                 foreach (XElement handlerElement in settingsDocument.Root.Elements("Handler"))
                 {
-                    string type = handlerElement.Attribute("type").Value;
-
-                    switch (type)
+                    try
                     {
-                        case "ShowMediaHandler":
-                            var showHandler = new ShowHandler(handlerElement);
-                            Handlers.Add(showHandler);
-                            break;
-                        default:
-                            Logging.Log.WarnFormat("Handler type {0} not found", type);
-                            break;
+                        string type = handlerElement.Attribute("type").Value;
+
+                        switch (type)
+                        {
+                            case "ShowMediaHandler":
+                                var showHandler = new ShowHandler(handlerElement);
+                                Handlers.Add(showHandler);
+                                break;
+                            default:
+                                Logging.Log.WarnFormat("Handler type {0} not found", type);
+                                break;
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        Logging.Log.ErrorFormat("Failure loading media handler: {0}. \n Handler file: {1}", ex, handlerElement);
                     }
                 }
             }
             catch (Exception ex)
             {
-                Logging.Log.ErrorFormat("Failure loading media handlers", ex);
+                Logging.Log.Error("Failure loading media handlers", ex);
                 throw;
             }
         }
