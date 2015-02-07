@@ -25,6 +25,8 @@ namespace MediaOrganizer.Scanner
 
         public void Scan()
         {
+            Logging.Log.Debug("Started scan");
+
             if (_initalized == false)
                 Initialize();
 

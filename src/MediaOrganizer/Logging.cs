@@ -5,6 +5,7 @@ using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 using log4net;
+using log4net.Config;
 
 namespace MediaOrganizer
 {
@@ -16,7 +17,10 @@ namespace MediaOrganizer
             get
             {
                 if (_log == null)
-                    _log = LogManager.GetLogger("LogManager");
+                {
+                    XmlConfigurator.Configure();
+                    _log = LogManager.GetLogger("MediaOrganizer");
+                }
 
                 return _log;
             }
