@@ -21,6 +21,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -47,7 +48,9 @@
   <ItemGroup>
     <Compile Include="Model\Disk\WindowsFileActions.cs" />
     <Compile Include="Scanner\HandlerXmlParser.cs" />
+    <Compile Include="Scanner\Handling\MediaHandler.cs" />
     <Compile Include="Scanner\Matching\CompositeMatcher.cs" />
+    <Compile Include="Scanner\Matching\FileMatcher.cs" />
     <Compile Include="Scanner\Matching\IContentMatcher.cs" />
     <Compile Include="Model\Disk\IFileActions.cs" />
     <Compile Include="Scanner\Handling\IMediaHandler.cs" />
@@ -74,6 +77,9 @@
     <Content Include="MediaDirectories.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Modules\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

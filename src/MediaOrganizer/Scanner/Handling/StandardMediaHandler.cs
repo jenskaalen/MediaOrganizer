@@ -12,15 +12,9 @@ namespace MediaOrganizer.Scanner.Handling
     /// <summary>
     /// Copies to a single ContentDirectory. Best used for movies and the like which do not need to be sorted to differnet subdirectories
     /// </summary>
-    public class StandardMediaHandler : IMediaHandler
+    public class StandardMediaHandler : MediaHandler
     {
-        public string Name { get; private set; }
         public IContentMatcher ContentMatcher { get; private set; }
-        public List<string> SearchDirectories { get; private set; }
-        public string ContentDirectory { get; set; }
-        public List<MediaFile> RegisteredMedia { get; private set; }
-        public IFilenameChanger FilenameChanger { get; private set; }
-        public IFileActions FileActions { get; private set; }
 
         private const string DataFolder = "DirectoryStates";
 
@@ -34,8 +28,45 @@ namespace MediaOrganizer.Scanner.Handling
             Initialize();
         }
 
-        public void SearchMedia()
+        public StandardMediaHandler(XElement handlerElement)
         {
+            try
+            {
+                Name = handlerElement.Element("Name").Value;
+                ContentDirectory = handlerElement.Element("ContentDirectory").Value;
+                SearchDirectories = new List<string>();
+
+                //TODO: this one is volatile, make it safer
+                var searchDirectoriesElement = handlerElement.Element("SearchDirectories");
+
+                if (searchDirectoriesElement != null)
+                {
+                    SearchDirectories =
+                        searchDirectoriesElement
+                            .Elements("SearchDirectory")
+                            .Select(element => element.Value).ToList();
+                }
+                else
+                {
+                    SearchDirectories = new List<string>();
+                    Logging.Log.WarnFormat("No directores found for {0}", Name);
+                }
+
+                //TODO: volatile code, can easily crash. fix it
+                FileActions = new WindowsFileActions();
+                ContentMatcher = HandlerXmlParser.ParseContentMatches(handlerElement.Element("MatchPatterns")).FirstOrDefault();
+            }
+            catch (Exception ex)
+            {
+                Logging.Log.Error("Failure loading showhandler", ex);
+                throw;
+            }
+        }
+
+        public override void SearchMedia()
+        {
+            base.SearchMedia();
+
             foreach (var directory in SearchDirectories)
             {
                 var files = Directory.GetFiles(directory, "*", SearchOption.AllDirectories)
@@ -45,6 +76,8 @@ namespace MediaOrganizer.Scanner.Handling
 
                 RenameAndCopyFiles(files);
             }
+
+            SaveRegisteredMedia(RegisteredMedia);
         }
 
         private void RenameAndCopyFiles(IEnumerable<string> filenames)
@@ -58,18 +91,6 @@ namespace MediaOrganizer.Scanner.Handling
 
                 FileActions.Copy(checkedFile, ContentDirectory);
             }
-        }
-
-        private void LoadRegisteredMedia()
-        {
-            string completePath = GetDataFile();
-            XDocument xDocument = XDocument.Load(completePath);
-
-            RegisteredMedia = xDocument.Root.Elements("MediaFile").Select(element => 
-                new MediaFile(
-                    element.Element("OriginalFile").Value,
-                    element.Element("ManagedFile").Value))
-                    .ToList();
         }
 
         private void Initialize()

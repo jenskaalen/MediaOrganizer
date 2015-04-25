@@ -59,11 +59,15 @@ namespace MediaOrganizer.Scanner
                     {
                         string type = handlerElement.Attribute("type").Value;
 
-                        switch (type)
+                        switch (type.ToLower())
                         {
-                            case "ShowMediaHandler":
+                            case "showmediahandler":
                                 var showHandler = new ShowHandler(handlerElement);
                                 Handlers.Add(showHandler);
+                                break;
+                            case "standardmediahandler":
+                                var standardHandler = new StandardMediaHandler(handlerElement);
+                                Handlers.Add(standardHandler);
                                 break;
                             default:
                                 Logging.Log.WarnFormat("Handler type {0} not found", type);

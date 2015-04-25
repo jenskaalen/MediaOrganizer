@@ -12,14 +12,8 @@ using MediaOrganizer.Scanner.Matching;
 
 namespace MediaOrganizer.Scanner.Handling
 {
-    public class ShowHandler : IMediaHandler
+    public class ShowHandler : MediaHandler
     {
-        public string Name { get; private set; }
-        public List<string> SearchDirectories { get; private set; }
-        public string ContentDirectory { get; set; }
-        public List<MediaFile> RegisteredMedia { get; private set; }
-        public IFilenameChanger FilenameChanger { get; private set; }
-        public IFileActions FileActions { get; private set; }
         public List<string> Shows { get; private set; }
 
         private List<ShowMatcher> _showMatches; 
@@ -66,10 +60,10 @@ namespace MediaOrganizer.Scanner.Handling
             }
         }
 
-        public void SearchMedia()
+        public override void SearchMedia()
         {
+            base.SearchMedia();
             InitializeShowDirectories();
-            RegisteredMedia = LoadRegisteredMedia();
 
             foreach (var directory in SearchDirectories)
             {
@@ -97,27 +91,6 @@ namespace MediaOrganizer.Scanner.Handling
             }
 
             SaveRegisteredMedia(RegisteredMedia);
-        }
-
-        private List<MediaFile> LoadRegisteredMedia()
-        {
-            if (!File.Exists(Name + "_media.xml"))
-                return new List<MediaFile>();
-
-            using (var writer = new StreamReader(Name + "_media.xml", Encoding.UTF8))
-            {
-                var serializer = new XmlSerializer(typeof(List<MediaFile>));
-                return (List<MediaFile>) serializer.Deserialize(writer);
-            }
-        }
-
-        private void SaveRegisteredMedia(List<MediaFile> registeredMedia)
-        {
-            using (var writer = new StreamWriter(Name + "_media.xml", false, Encoding.UTF8))
-            {
-                var serializer = new XmlSerializer(typeof (List<MediaFile>));
-                serializer.Serialize(writer, registeredMedia);
-            }
         }
 
         private void InitializeShowDirectories()

@@ -23,12 +23,38 @@ namespace MediaOrganizer.Scanner
                         ShowMatcher matcher = GetShowMatcher(matcherElement);
                         matchers.Add(matcher);
                         break;
+                    case "filematcher":
+                        FileMatcher filematcher = GetFileMatcher(matcherElement);
+                        matchers.Add(filematcher);
+                        break;
                     default:
                         throw new NotImplementedException();
                 }
             }
 
             return matchers;
+        }
+
+        private static FileMatcher GetFileMatcher(XElement element)
+        {
+            var matchers = new List<IContentMatcher>();
+
+            string regexPattern = element.Attribute("regexPattern") != null
+                ? element.Attribute("regexPattern").Value
+                : null;
+
+            string minKbSize = element.Attribute("minKbSize") != null
+                ? element.Attribute("minKbSize").Value
+                : null;
+
+            if (!String.IsNullOrEmpty(minKbSize))
+                matchers.Add(new SizeMatcher(long.Parse(minKbSize)));
+
+            if (!String.IsNullOrEmpty(regexPattern))
+                matchers.Add(new RegexContentMatcher(regexPattern));
+
+            var matcher = new FileMatcher(matchers);
+            return matcher;
         }
 
         private static ShowMatcher GetShowMatcher(XElement element)

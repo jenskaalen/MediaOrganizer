@@ -12,4 +12,15 @@
       <ShowMatcher show="Dexter" regexPattern=".mkv" minKbSize="400000"></ShowMatcher>
     </MatchPatterns>
   </Handler>
+  <Handler type="StandardMediaHandler">
+    <Name>Movies</Name>
+    <SearchDirectories>
+      <SearchDirectory>F:\MovieTest\Content</SearchDirectory>
+    </SearchDirectories>
+    <ContentDirectory>F:\MovieTest\SaveDirectory</ContentDirectory>
+    <MatchPatterns>
+      <!-- ShowMatcher must include "show" attribute and can include "regexPattern" and "minKbSize" attribute -->
+      <filematcher regexPattern=".mkv" minKbSize="1400000"></filematcher>
+    </MatchPatterns>
+  </Handler>
 </Handlers>
