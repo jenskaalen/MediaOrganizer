@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Modules>
+  <Module type="RssDownloader" name="RssDownloader01">
+    <!-- Url to the rss feed -->
+    <FeedUrl></FeedUrl>
+    <!-- full path to the torrent application, like C:\program files\utorrent\utorrent.exe -->
+    <TorrentApplicationPath></TorrentApplicationPath>
+    <MatchPatterns>
+      <!-- ShowMatcher must include "show" attribute and can include "regexPattern" and "minKbSize" attribute -->
+      <!-- TODO: use something other than showmatcher - minKbSize will break the matcher -->
+      <ShowMatcher show="Dexter" regexPattern=".mkv"></ShowMatcher>
+    </MatchPatterns>
+  </Module>
+</Modules>

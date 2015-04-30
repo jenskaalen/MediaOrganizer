@@ -53,11 +53,15 @@
   <ItemGroup>
     <Compile Include="Model\Disk\WindowsFileActions.cs" />
     <Compile Include="Model\RssFeed.cs" />
+    <Compile Include="Modules\IModule.cs" />
+    <Compile Include="Modules\ModuleRunner.cs" />
     <Compile Include="Modules\RssDownloader.cs" />
     <Compile Include="Scanner\HandlerXmlParser.cs" />
     <Compile Include="Scanner\Handling\MediaHandler.cs" />
+    <Compile Include="Scanner\Matching\AnyMatcher.cs" />
     <Compile Include="Scanner\Matching\CompositeMatcher.cs" />
     <Compile Include="Scanner\Matching\FileMatcher.cs" />
+    <Compile Include="Scanner\Matching\FileNameMatcher.cs" />
     <Compile Include="Scanner\Matching\IContentMatcher.cs" />
     <Compile Include="Model\Disk\IFileActions.cs" />
     <Compile Include="Scanner\Handling\IMediaHandler.cs" />
@@ -84,6 +88,7 @@
     <Content Include="MediaDirectories.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Modules.xml" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

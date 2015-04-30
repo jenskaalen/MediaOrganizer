@@ -12,8 +12,7 @@ namespace MediaOrganizer.Scanner.Matching
     public class ShowMatcher : IContentMatcher
     {
         public string Show { get; private set; }
-        internal List<IContentMatcher> ContentMatchers { get; set; } 
-        private readonly RegexContentMatcher _regexMatcher;
+        internal List<IContentMatcher> ContentMatchers { get; set; }
 
         public ShowMatcher(string show)
         {

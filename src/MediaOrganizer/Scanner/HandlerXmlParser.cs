@@ -11,6 +11,11 @@ namespace MediaOrganizer.Scanner
 {
     public static class HandlerXmlParser
     {
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="element">XML node containing matcher elements as children</param>
+        /// <returns></returns>
         public static List<IContentMatcher> ParseContentMatches(XElement element)
         {
             var matchers = new List<IContentMatcher>();

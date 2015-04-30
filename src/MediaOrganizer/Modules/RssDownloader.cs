@@ -12,7 +12,7 @@ using MediaOrganizer.Scanner.Matching;
 
 namespace MediaOrganizer.Modules
 {
-    public class RssDownloader
+    public class RssDownloader: IModule
     {
         /// <summary>
         /// http/s link to the feed
@@ -21,29 +21,35 @@ namespace MediaOrganizer.Modules
         /// <summary>
         /// Previously downloaded files
         /// </summary>
-        public List<string> DownloadedLinks { get; private set; }
-        public IContentMatcher ContentMatcher { get; private set; }
+        public List<string> DownloadedLinks { get; set; }
+        public IContentMatcher ContentMatcher { get; set; }
+        public string Name { get; set; }
+        public string TorrentApplication { get; set; }
 
-        private readonly RssFeed _feed;
+        private RssFeed _feed;
+        private string _downloadLinksFile;
+
+        private RssDownloader(string name, string torrentApplication, IContentMatcher contentMatcher)
+        {
+            Name = name;
+            TorrentApplication = torrentApplication;
+            ContentMatcher = contentMatcher;
+        }
 
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="feedLink"></param>
-        /// <param name="downloadedLinks">already registered/downloaded media files</param>
+        /// <param name="name"></param>
+        /// <param name="torrentApplication">Full path of the .exe to run for torrents</param>
+        /// <param name="feedLink">Link to the rss feed</param>
         /// <param name="contentMatcher"></param>
-        public RssDownloader(string feedLink, IEnumerable<string> downloadedLinks, IContentMatcher contentMatcher)
+        public RssDownloader(string name, string torrentApplication, string feedLink, IContentMatcher contentMatcher):this(name, torrentApplication, contentMatcher)
         {
             FeedLink = feedLink;
-            DownloadedLinks = downloadedLinks.ToList();
-            ContentMatcher = contentMatcher;
-            _feed = DownloadFeed(feedLink);
         }
 
-        public RssDownloader(RssFeed feed, IEnumerable<string> downloadedLinks, IContentMatcher contentMatcher)
+        public RssDownloader(RssFeed feed, string name, string torrentApplication, IContentMatcher contentMatcher): this(name, torrentApplication, contentMatcher)
         {
-            DownloadedLinks = downloadedLinks.ToList();
-            ContentMatcher = contentMatcher;
             _feed = feed;
         }
 
@@ -62,7 +68,7 @@ namespace MediaOrganizer.Modules
         /// Returns all files to download from the feed
         /// </summary>
         /// <returns></returns>
-        public List<string> FilesToDownload()
+        public List<string> UrlToDownload()
         {
             IEnumerable<string> contentMatchingLinks = _feed.Items
                 .Where(item => ContentMatcher.Match(item.Title))
@@ -73,8 +79,41 @@ namespace MediaOrganizer.Modules
 
         public void DownloadTorrent(string programPath, string link)
         {
+            Logging.Log.DebugFormat("Hitting application {0} with parameter {1}", programPath, link);
             Process.Start(programPath, link);
             DownloadedLinks.Add(link);
+        }
+
+        public void Start()
+        {
+            if (_feed == null)
+            {
+                if (String.IsNullOrEmpty(FeedLink))
+                    throw new Exception("Both Feed and FeedLink cant be empty/not set");
+                _feed = DownloadFeed(FeedLink);
+            }
+
+            if (DownloadedLinks == null || !DownloadedLinks.Any())
+            {
+                _downloadLinksFile = String.Format("{0}.txt", Name);
+                DownloadedLinks = File.Exists(_downloadLinksFile) ? File.ReadAllLines(_downloadLinksFile).ToList() : new List<string>();   
+            }
+
+            foreach (string linkToDownload in UrlToDownload())
+            {
+                DownloadTorrent(TorrentApplication, linkToDownload);
+            }
+        }
+
+        public void End()
+        {
+            using (var writer = new StreamWriter(_downloadLinksFile, false))
+            {
+                for (int i = 0; i < DownloadedLinks.Count; i++)
+                {
+                    writer.WriteLine(DownloadedLinks[i]);
+                }
+            }
         }
     }
 }
