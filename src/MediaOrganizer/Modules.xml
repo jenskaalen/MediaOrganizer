@@ -1,14 +1,59 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Modules>
   <Module type="RssDownloader" name="RssDownloader01">
-    <!-- Url to the rss feed -->
-    <FeedUrl></FeedUrl>
+    <!-- Url to the rss feed. Remember to xml encode -->
+    <FeedUrl>http://torrentshack.me/feeds.php?user=140490&amp;auth=414ddc436294ee72dd77d883bfcc0216&amp;passkey=rd9cd8rptu7489wvvw6iqcdrxr6s0n27&amp;authkey=1064234e21747d99e9b044e58a80f658&amp;feed=torrents&amp;cat=600</FeedUrl>
     <!-- full path to the torrent application, like C:\program files\utorrent\utorrent.exe -->
-    <TorrentApplicationPath></TorrentApplicationPath>
+    <TorrentApplicationPath>C:\Program Files (x86)\Deluge\deluge.exe</TorrentApplicationPath>
     <MatchPatterns>
       <!-- ShowMatcher must include "show" attribute and can include "regexPattern" and "minKbSize" attribute -->
       <!-- TODO: use something other than showmatcher - minKbSize will break the matcher -->
-      <ShowMatcher show="Dexter" regexPattern=".mkv"></ShowMatcher>
+      <ShowMatcher show="American Horror Story"></ShowMatcher>
+      <ShowMatcher show="Arrested Development"></ShowMatcher>
+      <ShowMatcher show="Band of Brothers"></ShowMatcher>
+      <ShowMatcher show="Black Mirror"></ShowMatcher>
+      <ShowMatcher show="Boardwalk Empire"></ShowMatcher>
+      <ShowMatcher show="Boss"></ShowMatcher>
+      <ShowMatcher show="Breaking Bad"></ShowMatcher>
+      <ShowMatcher show="Californication"></ShowMatcher>
+      <ShowMatcher show="Castle"></ShowMatcher>
+      <ShowMatcher show="Community"></ShowMatcher>
+      <ShowMatcher show="Eastbound and Down"></ShowMatcher>
+      <ShowMatcher show="Firefly"></ShowMatcher>
+      <ShowMatcher show="Forever"></ShowMatcher>
+      <ShowMatcher show="Game Of Thrones"></ShowMatcher>
+      <ShowMatcher show="Gotham" ></ShowMatcher>
+      <ShowMatcher show="Grey's Anatomy"></ShowMatcher>
+      <ShowMatcher show="Greys Anatomy"></ShowMatcher>
+      <ShowMatcher show="Grimm"></ShowMatcher>
+      <ShowMatcher show="Hannibal"></ShowMatcher>
+      <ShowMatcher show="House of Cards"></ShowMatcher>
+      <ShowMatcher show="How I Met Your Mother"></ShowMatcher>
+      <ShowMatcher show="Hunter X Hunter"></ShowMatcher>
+      <ShowMatcher show="Its Always Sunny In Philadelphia"></ShowMatcher>
+      <ShowMatcher show="Louie"></ShowMatcher>
+      <ShowMatcher show="Modern Family"></ShowMatcher>
+      <ShowMatcher show="Orange Is The New Black"></ShowMatcher>
+      <ShowMatcher show="Orphan Black"></ShowMatcher>
+      <ShowMatcher show="Parks and Recreation"></ShowMatcher>
+      <ShowMatcher show="Shameless"></ShowMatcher>
+      <ShowMatcher show="Sherlock"></ShowMatcher>
+      <ShowMatcher show="Silicon Valley"></ShowMatcher>
+      <ShowMatcher show="South Park"></ShowMatcher>
+      <ShowMatcher show="Spartacus"></ShowMatcher>
+      <ShowMatcher show="Supernatural"></ShowMatcher>
+      <ShowMatcher show="The Big Bang Theory"></ShowMatcher>
+      <ShowMatcher show="The Guild"></ShowMatcher>
+      <ShowMatcher show="The League"></ShowMatcher>
+      <ShowMatcher show="The Legend of Korra"></ShowMatcher>
+      <ShowMatcher show="The Strain"></ShowMatcher>
+      <ShowMatcher show="The Walking Dead"></ShowMatcher>
+      <ShowMatcher show="The Wire"></ShowMatcher>
+      <ShowMatcher show="True Detective"></ShowMatcher>
+      <ShowMatcher show="UFC"></ShowMatcher>
+      <ShowMatcher show="Vikings"></ShowMatcher>
+      <ShowMatcher show="Workaholics"></ShowMatcher>
+      <ShowMatcher show="The Americans"></ShowMatcher>
     </MatchPatterns>
   </Module>
 </Modules>

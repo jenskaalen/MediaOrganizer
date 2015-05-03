@@ -35,6 +35,7 @@ namespace MediaOrganizer.Modules
             foreach (XElement moduleElement in modulElements)
             {
                 IModule module = GetModule(moduleElement);
+                modules.Add(module);
             }
 
             return modules;
@@ -64,6 +65,7 @@ namespace MediaOrganizer.Modules
             }
         }
 
+        //TODO: refactor this away
         public RssDownloader ParseRssDownloader(XElement moduleElement)
         {
             string name = moduleElement.Attribute("name").Value;

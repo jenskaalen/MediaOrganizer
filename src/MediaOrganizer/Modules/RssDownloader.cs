@@ -101,7 +101,14 @@ namespace MediaOrganizer.Modules
 
             foreach (string linkToDownload in UrlToDownload())
             {
-                DownloadTorrent(TorrentApplication, linkToDownload);
+                try
+                {
+                    DownloadTorrent(TorrentApplication, linkToDownload);
+                }
+                catch (Exception ex)
+                {
+                    Logging.Log.Error(ex);
+                }
             }
         }
 

@@ -90,6 +90,12 @@ namespace MediaOrganizer.Scanner.Handling
                     checkedFile = FilenameChanger.ChangedName(filename);
 
                 FileActions.Copy(checkedFile, ContentDirectory);
+
+                Logging.Log.DebugFormat("Found match for {0}. Copying to {1}", checkedFile, ContentDirectory);
+
+                RegisteredMedia.Add(
+                    new MediaFile(filename, checkedFile)
+                    );
             }
         }
 
