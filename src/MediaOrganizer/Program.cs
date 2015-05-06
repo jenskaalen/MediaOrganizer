@@ -12,11 +12,11 @@ namespace MediaOrganizer
     {
         static void Main(string[] args)
         {
-            IMediaScanner scanner = new StandardMediaScanner();
-            scanner.Scan();
-
             var moduleRunner = new ModuleRunner();
             moduleRunner.RunModules();
+
+            IMediaScanner scanner = new StandardMediaScanner();
+            scanner.Scan();
         }
     }
 }
