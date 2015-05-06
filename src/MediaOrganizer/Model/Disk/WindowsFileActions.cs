@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Configuration;
 using System.IO;
 
 namespace MediaOrganizer.Model.Disk
@@ -9,6 +10,10 @@ namespace MediaOrganizer.Model.Disk
         {
             string filename = Path.GetFileName(filePath);
             string newpath = String.Format("{0}\\{1}", directory, filename);
+
+            if (Config.OverwriteExistingFiles && File.Exists(newpath))
+                return newpath;
+
             File.Copy(filePath, newpath, true);
             return newpath;
         }
@@ -16,6 +21,10 @@ namespace MediaOrganizer.Model.Disk
         public string Copy(string filePath, string directory, string newFilename)
         {
             string newpath = String.Format("{0}\\{1}", directory, newFilename);
+
+            if (Config.OverwriteExistingFiles && File.Exists(newpath))
+                return newpath;
+
             File.Copy(filePath, newpath, true);
             return newpath;
         }

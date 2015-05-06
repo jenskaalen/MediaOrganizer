@@ -51,6 +51,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Config.cs" />
     <Compile Include="Model\Disk\WindowsFileActions.cs" />
     <Compile Include="Model\RssFeed.cs" />
     <Compile Include="Modules\IModule.cs" />
