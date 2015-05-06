@@ -114,13 +114,7 @@ namespace MediaOrganizer.Modules
 
         public void End()
         {
-            using (var writer = new StreamWriter(_downloadLinksFile, false))
-            {
-                for (int i = 0; i < DownloadedLinks.Count; i++)
-                {
-                    writer.WriteLine(DownloadedLinks[i]);
-                }
-            }
+            File.WriteAllLines(_downloadLinksFile, DownloadedLinks);
         }
     }
 }
