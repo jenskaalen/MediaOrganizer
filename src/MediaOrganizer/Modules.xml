@@ -1,5 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Modules>
+  <!-- of unzipperType only "SevenZip" is supported -->
+  <Module type="Unzipper" unzipperType="SevenZip" name="SevenZipUnzipper">
+    <ApplicationPath>C:\Program Files\7-Zip\7z.exe</ApplicationPath>
+    <SearchDirectory>F:\MovieTest\Unziptest</SearchDirectory>
+  </Module>
   <Module type="RssDownloader" name="RssDownloader01">
     <!-- Url to the rss feed. Remember to xml encode -->
     <FeedUrl>http://torrentshack.me/feeds.php?user=140490&amp;auth=414ddc436294ee72dd77d883bfcc0216&amp;passkey=rd9cd8rptu7489wvvw6iqcdrxr6s0n27&amp;authkey=1064234e21747d99e9b044e58a80f658&amp;feed=torrents&amp;cat=600</FeedUrl>

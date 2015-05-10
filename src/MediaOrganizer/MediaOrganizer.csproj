@@ -57,6 +57,7 @@
     <Compile Include="Modules\IModule.cs" />
     <Compile Include="Modules\ModuleRunner.cs" />
     <Compile Include="Modules\RssDownloader.cs" />
+    <Compile Include="Modules\Unzipper.cs" />
     <Compile Include="Scanner\HandlerXmlParser.cs" />
     <Compile Include="Scanner\Handling\MediaHandler.cs" />
     <Compile Include="Scanner\Matching\AnyMatcher.cs" />

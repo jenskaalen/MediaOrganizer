@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
@@ -20,8 +21,15 @@ namespace MediaOrganizer.Modules
             foreach (IModule module in modules)
             {
                 Logging.Log.DebugFormat("Running module {0}", module.Name);
-                module.Start();
-                module.End();
+                try
+                {
+                    module.Start();
+                    module.End();
+                }
+                catch (Exception ex)
+                {
+                    Logging.Log.Error(ex);
+                }
             }
         }
 
@@ -34,8 +42,15 @@ namespace MediaOrganizer.Modules
 
             foreach (XElement moduleElement in modulElements)
             {
-                IModule module = GetModule(moduleElement);
-                modules.Add(module);
+                try
+                {
+                    IModule module = GetModule(moduleElement);
+                    modules.Add(module);
+                }
+                catch (Exception ex)
+                {
+                    Logging.Log.ErrorFormat("Failed loading module from xml element: {0}",ex);
+                }
             }
 
             return modules;
@@ -60,9 +75,26 @@ namespace MediaOrganizer.Modules
             {
                 case "RssDownloader":
                     return ParseRssDownloader(moduleElement);
+                case "Unzipper":
+                    return ParseUnzipper(moduleElement);
                 default:
                     throw new NotImplementedException("module name not supported: " + moduleType );
             }
+        }
+
+        private IModule ParseUnzipper(XElement moduleElement)
+        {
+            string name = moduleElement.Attribute("name").Value;
+            var zippingProgram = (ZippingProgram)Enum.Parse(typeof(ZippingProgram), moduleElement.Attribute("unzipperType").Value);
+            string application = moduleElement.Element("ApplicationPath").Value;
+            string searchDirectory = moduleElement.Element("SearchDirectory").Value;
+            
+            //List<IContentMatcher> matchers =
+            //    HandlerXmlParser.ParseContentMatches(moduleElement.Element("MatchPatterns"));
+            //var matcher = new AnyMatcher(matchers);
+
+            var unzipper = new Unzipper(zippingProgram, application, searchDirectory, name);
+            return unzipper;
         }
 
         //TODO: refactor this away

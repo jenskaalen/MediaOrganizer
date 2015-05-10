@@ -27,7 +27,7 @@ namespace MediaOrganizer.Modules
         public string TorrentApplication { get; set; }
 
         private RssFeed _feed;
-        private string _downloadLinksFile;
+        private string _downloadLinksFile { get { return Config.StorageFolder + "\\" + Name + ".txt"; } }
 
         private RssDownloader(string name, string torrentApplication, IContentMatcher contentMatcher)
         {
@@ -95,7 +95,6 @@ namespace MediaOrganizer.Modules
 
             if (DownloadedLinks == null || !DownloadedLinks.Any())
             {
-                _downloadLinksFile = String.Format("{0}.txt", Name);
                 DownloadedLinks = File.Exists(_downloadLinksFile) ? File.ReadAllLines(_downloadLinksFile).ToList() : new List<string>();   
             }
 

@@ -15,6 +15,7 @@ namespace MediaOrganizer.Scanner.Handling
         public IFilenameChanger FilenameChanger { get; protected set; }
         public IFileActions FileActions { get; protected set; }
 
+        protected string MediaStorageFile { get { return Config.StorageFolder + "\\" + Name + "_media.xml"; } }
 
         public virtual void SearchMedia()
         {
@@ -24,10 +25,10 @@ namespace MediaOrganizer.Scanner.Handling
 
         protected List<MediaFile> LoadRegisteredMedia()
         {
-            if (!File.Exists(Name + "_media.xml"))
+            if (!File.Exists(MediaStorageFile))
                 return new List<MediaFile>();
 
-            using (var writer = new StreamReader(Name + "_media.xml", Encoding.UTF8))
+            using (var writer = new StreamReader(MediaStorageFile, Encoding.UTF8))
             {
                 var serializer = new XmlSerializer(typeof(List<MediaFile>));
                 return (List<MediaFile>)serializer.Deserialize(writer);
@@ -36,7 +37,7 @@ namespace MediaOrganizer.Scanner.Handling
 
         protected void SaveRegisteredMedia(List<MediaFile> registeredMedia)
         {
-            using (var writer = new StreamWriter(Name + "_media.xml", false, Encoding.UTF8))
+            using (var writer = new StreamWriter(MediaStorageFile, false, Encoding.UTF8))
             {
                 var serializer = new XmlSerializer(typeof(List<MediaFile>));
                 serializer.Serialize(writer, registeredMedia);

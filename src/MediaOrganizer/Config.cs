@@ -25,5 +25,7 @@ namespace MediaOrganizer
                 }
             }
         }
+
+        public const string StorageFolder = "Storage";
     }
 }
