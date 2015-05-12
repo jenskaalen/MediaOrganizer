@@ -6,59 +6,52 @@
     <SearchDirectory>F:\MovieTest\Unziptest</SearchDirectory>
   </Module>
   <Module type="RssDownloader" name="RssDownloader01">
-    <!-- Url to the rss feed. Remember to xml encode -->
+    <!-- Url to the rss feed. Remember to XML ENCODE the url before pasting it in -->
     <FeedUrl>http://torrentshack.me/feeds.php?user=140490&amp;auth=414ddc436294ee72dd77d883bfcc0216&amp;passkey=rd9cd8rptu7489wvvw6iqcdrxr6s0n27&amp;authkey=1064234e21747d99e9b044e58a80f658&amp;feed=torrents&amp;cat=600</FeedUrl>
     <!-- full path to the torrent application, like C:\program files\utorrent\utorrent.exe -->
     <TorrentApplicationPath>C:\Program Files (x86)\Deluge\deluge.exe</TorrentApplicationPath>
     <MatchPatterns>
       <!-- ShowMatcher must include "show" attribute and can include "regexPattern" and "minKbSize" attribute -->
+      <!-- NOTE: showmatcher for torrents will do a simple match on the torrent title -->
       <!-- TODO: use something other than showmatcher - minKbSize will break the matcher -->
-      <ShowMatcher show="American Horror Story"></ShowMatcher>
-      <ShowMatcher show="Arrested Development"></ShowMatcher>
-      <ShowMatcher show="Band of Brothers"></ShowMatcher>
-      <ShowMatcher show="Black Mirror"></ShowMatcher>
-      <ShowMatcher show="Boardwalk Empire"></ShowMatcher>
-      <ShowMatcher show="Boss"></ShowMatcher>
-      <ShowMatcher show="Breaking Bad"></ShowMatcher>
-      <ShowMatcher show="Californication"></ShowMatcher>
-      <ShowMatcher show="Castle"></ShowMatcher>
-      <ShowMatcher show="Community"></ShowMatcher>
-      <ShowMatcher show="Eastbound and Down"></ShowMatcher>
-      <ShowMatcher show="Firefly"></ShowMatcher>
-      <ShowMatcher show="Forever"></ShowMatcher>
-      <ShowMatcher show="Game Of Thrones"></ShowMatcher>
-      <ShowMatcher show="Gotham" ></ShowMatcher>
-      <ShowMatcher show="Grey's Anatomy"></ShowMatcher>
-      <ShowMatcher show="Greys Anatomy"></ShowMatcher>
-      <ShowMatcher show="Grimm"></ShowMatcher>
-      <ShowMatcher show="Hannibal"></ShowMatcher>
-      <ShowMatcher show="House of Cards"></ShowMatcher>
-      <ShowMatcher show="How I Met Your Mother"></ShowMatcher>
-      <ShowMatcher show="Hunter X Hunter"></ShowMatcher>
-      <ShowMatcher show="Its Always Sunny In Philadelphia"></ShowMatcher>
-      <ShowMatcher show="Louie"></ShowMatcher>
-      <ShowMatcher show="Modern Family"></ShowMatcher>
-      <ShowMatcher show="Orange Is The New Black"></ShowMatcher>
-      <ShowMatcher show="Orphan Black"></ShowMatcher>
-      <ShowMatcher show="Parks and Recreation"></ShowMatcher>
-      <ShowMatcher show="Shameless"></ShowMatcher>
-      <ShowMatcher show="Sherlock"></ShowMatcher>
-      <ShowMatcher show="Silicon Valley"></ShowMatcher>
-      <ShowMatcher show="South Park"></ShowMatcher>
-      <ShowMatcher show="Spartacus"></ShowMatcher>
-      <ShowMatcher show="Supernatural"></ShowMatcher>
-      <ShowMatcher show="The Big Bang Theory"></ShowMatcher>
-      <ShowMatcher show="The Guild"></ShowMatcher>
-      <ShowMatcher show="The League"></ShowMatcher>
-      <ShowMatcher show="The Legend of Korra"></ShowMatcher>
-      <ShowMatcher show="The Strain"></ShowMatcher>
-      <ShowMatcher show="The Walking Dead"></ShowMatcher>
-      <ShowMatcher show="The Wire"></ShowMatcher>
-      <ShowMatcher show="True Detective"></ShowMatcher>
-      <ShowMatcher show="UFC"></ShowMatcher>
-      <ShowMatcher show="Vikings"></ShowMatcher>
-      <ShowMatcher show="Workaholics"></ShowMatcher>
-      <ShowMatcher show="The Americans"></ShowMatcher>
+      <ShowMatcher show="720p American Horror Story" regexPattern="(?i)immerse|dimension(?-i)"></ShowMatcher>
+      <ShowMatcher show="720p Arrested Development" regexPattern="(?i)immerse|dimension(?-i)"></ShowMatcher>
+      <ShowMatcher show="720p Band of Brothers" regexPattern="(?i)immerse|dimension(?-i)"></ShowMatcher>
+      <ShowMatcher show="720p Black Mirror" regexPattern="(?i)immerse|dimension(?-i)"></ShowMatcher>
+      <ShowMatcher show="720p Boardwalk Empire" regexPattern="(?i)immerse|dimension(?-i)"></ShowMatcher>
+      <ShowMatcher show="720p Boss" regexPattern="(?i)immerse|dimension(?-i)"></ShowMatcher>
+      <ShowMatcher show="720p Breaking Bad" regexPattern="(?i)immerse|dimension(?-i)"></ShowMatcher>
+      <ShowMatcher show="720p Californication" regexPattern="(?i)immerse|dimension(?-i)"></ShowMatcher>
+      <ShowMatcher show="720p Castle" regexPattern="(?i)immerse|dimension(?-i)"></ShowMatcher>
+      <ShowMatcher show="720p Community" regexPattern="(?i)immerse|dimension(?-i)"></ShowMatcher>
+      <ShowMatcher show="720p Eastbound and Down" regexPattern="(?i)immerse|dimension(?-i)"></ShowMatcher>
+      <ShowMatcher show="720p Firefly" regexPattern="(?i)immerse|dimension(?-i)"></ShowMatcher>
+      <ShowMatcher show="720p Forever" regexPattern="(?i)immerse|dimension(?-i)"></ShowMatcher>
+      <ShowMatcher show="720p Game Of Thrones" regexPattern="(?i)immerse|dimension|topkek(?-i)"></ShowMatcher>
+      <ShowMatcher show="720p Gotham"  regexPattern="(?i)immerse|dimension|ctrlhd(?-i)"></ShowMatcher>
+      <ShowMatcher show="720p Hannibal" regexPattern="(?i)immerse|dimension(?-i)"></ShowMatcher>
+      <ShowMatcher show="720p House of Cards" regexPattern="(?i)immerse|dimension(?-i)"></ShowMatcher>
+      <ShowMatcher show="720p Its Always Sunny In Philadelphia" regexPattern="(?i)immerse|dimension(?-i)"></ShowMatcher>
+      <ShowMatcher show="720p Louie" regexPattern="(?i)immerse|dimension(?-i)"></ShowMatcher>
+      <ShowMatcher show="720p Modern Family" regexPattern="(?i)immerse|dimension(?-i)"></ShowMatcher>
+      <ShowMatcher show="720p Orange Is The New Black" regexPattern="(?i)immerse|dimension(?-i)"></ShowMatcher>
+      <ShowMatcher show="720p Orphan Black" regexPattern="(?i)immerse|eci(?-i)"></ShowMatcher>
+      <ShowMatcher show="720p Parks and Recreation" regexPattern="(?i)immerse|dimension(?-i)"></ShowMatcher>
+      <ShowMatcher show="720p Shameless" regexPattern="(?i)immerse|dimension(?-i)"></ShowMatcher>
+      <ShowMatcher show="720p Sherlock" regexPattern="(?i)immerse|dimension(?-i)"></ShowMatcher>
+      <ShowMatcher show="720p Silicon Valley" regexPattern="(?i)immerse|dimension(?-i)"></ShowMatcher>
+      <ShowMatcher show="720p South Park" regexPattern="(?i)immerse|dimension(?-i)"></ShowMatcher>
+      <ShowMatcher show="720p Spartacus" regexPattern="(?i)immerse|dimension(?-i)"></ShowMatcher>
+      <ShowMatcher show="720p Supernatural" regexPattern="(?i)immerse|dimension(?-i)"></ShowMatcher>
+      <ShowMatcher show="720p The Big Bang Theory" regexPattern="(?i)immerse|dimension(?-i)"></ShowMatcher>
+      <ShowMatcher show="720p The League" regexPattern="(?i)immerse|dimension(?-i)"></ShowMatcher>
+      <ShowMatcher show="720p The Strain" regexPattern="(?i)immerse|dimension(?-i)"></ShowMatcher>
+      <ShowMatcher show="720p The Walking Dead" regexPattern="(?i)immerse|dimension(?-i)"></ShowMatcher>
+      <ShowMatcher show="720p True Detective" regexPattern="(?i)immerse|dimension(?-i)"></ShowMatcher>
+      <ShowMatcher show="720p UFC" regexPattern="(?i)immerse|dimension(?-i)"></ShowMatcher>
+      <ShowMatcher show="720p Vikings" regexPattern="(?i)immerse|dimension(?-i)"></ShowMatcher>
+      <ShowMatcher show="720p Workaholics" regexPattern="(?i)immerse|dimension(?-i)"></ShowMatcher>
+      <ShowMatcher show="720p The Americans" regexPattern="(?i)immerse|dimension(?-i)"></ShowMatcher>
     </MatchPatterns>
   </Module>
 </Modules>

@@ -1,15 +1,22 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <!-- Each handler must have a type attribute, a name element, at least one SearchDirectories -> SearchDirectory element, a ContentDirectory element and at least one MatchPatterns -> MatchPattern -->
 <Handlers>
+  <!-- ShowMediaHandler will create a subdirectory for every ShowMatcher in the ContentDirectory -->
   <Handler type="ShowMediaHandler">
     <Name>Shows</Name>
     <SearchDirectories>
+      <!-- Where the handler will search for new content -->
       <SearchDirectory>F:\ShowTest\Content</SearchDirectory>
     </SearchDirectories>
+    <!-- Where files be copied/moved -->
     <ContentDirectory>F:\ShowTest\SaveDirectories</ContentDirectory>
     <MatchPatterns>
       <!-- ShowMatcher must include "show" attribute and can include "regexPattern" and "minKbSize" attribute -->
-      <ShowMatcher show="Dexter" regexPattern=".mkv" minKbSize="400000"></ShowMatcher>
+      <ShowMatcher show="American Horror Story" regexPattern="^*^*(.mkv|.mp4)$$" minKbSize="250000"></ShowMatcher>
+      <ShowMatcher show="Arrested Development" regexPattern="^*(.mkv|.mp4)$" minKbSize="250000"></ShowMatcher>
+      <ShowMatcher show="Band of Brothers" regexPattern="^*(.mkv|.mp4)$" minKbSize="250000"></ShowMatcher>
+      <ShowMatcher show="Black Mirror" regexPattern="^*(.mkv|.mp4)$" minKbSize="250000"></ShowMatcher>
+      <ShowMatcher show="Boardwalk Empire" regexPattern="^*(.mkv|.mp4)$" minKbSize="250000"></ShowMatcher>
     </MatchPatterns>
   </Handler>
   <Handler type="StandardMediaHandler">
