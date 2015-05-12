@@ -116,7 +116,7 @@ namespace MediaOrganizer.Scanner.Handling
                 string newFile = Path.Combine(ContentDirectory, show);
                 string copiedFile = FileActions.Copy(checkedFile, newFile);
 
-                Logging.Log.DebugFormat("Found match for {0} on show {1} and copied to {2}", checkedFile, show, newFile);
+                Logging.Log.DebugFormat("Found match for {0} on show {1} and copying to {2}...", checkedFile, show, newFile);
 
                 RegisteredMedia.Add(
                     new MediaFile(filename, copiedFile)
