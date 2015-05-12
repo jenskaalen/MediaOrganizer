@@ -36,7 +36,7 @@ namespace MediaOrganizer.Modules
 
             if (!File.Exists(PreviousUnzipsFile))
             {
-                File.Create(PreviousUnzipsFile);   
+                File.Create(PreviousUnzipsFile).Close();   
                 _previouslyUnzippedFiles = new List<string>();
             }
             else
