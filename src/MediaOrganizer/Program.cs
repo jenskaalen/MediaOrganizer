@@ -13,6 +13,8 @@ namespace MediaOrganizer
     {
         static void Main(string[] args)
         {
+            Logging.Log.Info("##START##");
+
             if (!Directory.Exists(Config.StorageFolder))
                 Directory.CreateDirectory(Config.StorageFolder);
 
@@ -21,6 +23,8 @@ namespace MediaOrganizer
 
             IMediaScanner scanner = new StandardMediaScanner();
             scanner.Scan();
+
+            Logging.Log.Info("##DONE##");
         }
     }
 }
