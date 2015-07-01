@@ -1,0 +1,12 @@
+﻿extends layout
+
+block content
+
+  h1 Modules
+
+  div(ng-controller="modulesController")
+    div(ng-repeat="module in modules.Modules.Module")
+      div {{ module.$.name }}
+      div {{ module.$.type }}
+      div {{ module }}
+      br 

@@ -1,0 +1,20 @@
+﻿doctype html
+html(ng-app="app")
+  head
+    title= title
+    link(rel='stylesheet', href='/stylesheets/style.css')
+    link(rel='stylesheet', href='/stylesheets/ngDialog.css')
+    link(rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css")
+    script(src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js")
+    script(src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js")
+    script(src="/javascripts/angularModule.js")
+    script(src="/javascripts/ui-bootstrap-tpls-0.13.0.min.js")
+
+  body
+    div
+      a(href="/") Media
+      br
+      a(href="/handlers") Handlers
+      br
+      div
+        block content

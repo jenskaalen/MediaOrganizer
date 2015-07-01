@@ -11,7 +11,7 @@ namespace MediaOrganizer.Model.Disk
             string filename = Path.GetFileName(filePath);
             string newpath = String.Format("{0}\\{1}", directory, filename);
 
-            if (Config.OverwriteExistingFiles && File.Exists(newpath))
+            if (!Config.OverwriteExistingFiles && File.Exists(newpath))
                 return newpath;
 
             File.Copy(filePath, newpath, true);
@@ -22,7 +22,7 @@ namespace MediaOrganizer.Model.Disk
         {
             string newpath = String.Format("{0}\\{1}", directory, newFilename);
 
-            if (Config.OverwriteExistingFiles && File.Exists(newpath))
+            if (!Config.OverwriteExistingFiles && File.Exists(newpath))
                 return newpath;
 
             File.Copy(filePath, newpath, true);

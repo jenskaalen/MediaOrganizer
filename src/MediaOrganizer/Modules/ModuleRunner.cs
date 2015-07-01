@@ -12,8 +12,13 @@ using MediaOrganizer.Scanner.Matching;
 
 namespace MediaOrganizer.Modules
 {
+    /// <summary>
+    /// Runs all modules specified in Modules.xml 
+    /// </summary>
     public class ModuleRunner
     {
+        private const string ModulesFile = "Modules.xml";
+
         public void RunModules()
         {
             List<IModule> modules = GetModules();
@@ -35,7 +40,7 @@ namespace MediaOrganizer.Modules
 
         private List<IModule> GetModules()
         {
-            var xdoc = XDocument.Load("Modules.xml");
+            var xdoc = XDocument.Load(ModulesFile);
             List<XElement> modulElements = GetModuleElements(xdoc);
 
             var modules = new List<IModule>();
@@ -88,10 +93,6 @@ namespace MediaOrganizer.Modules
             var zippingProgram = (ZippingProgram)Enum.Parse(typeof(ZippingProgram), moduleElement.Attribute("unzipperType").Value);
             string application = moduleElement.Element("ApplicationPath").Value;
             string searchDirectory = moduleElement.Element("SearchDirectory").Value;
-            
-            //List<IContentMatcher> matchers =
-            //    HandlerXmlParser.ParseContentMatches(moduleElement.Element("MatchPatterns"));
-            //var matcher = new AnyMatcher(matchers);
 
             var unzipper = new Unzipper(zippingProgram, application, searchDirectory, name);
             return unzipper;

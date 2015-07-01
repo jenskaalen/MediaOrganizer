@@ -1,0 +1,12 @@
+﻿extends layout
+
+block content
+
+  div(ng-controller="mediaController") 
+
+    div(ng-repeat="mediaInfo in mediaInfos")
+      div(class="panel panel-default" )
+        div(class="panel-heading" ng-click="visible[mediaInfo.$.name] = !visible[mediaInfo.$.name]" )  {{  mediaInfo.$.name }}
+        div(class="panel-body" ng-show="visible[mediaInfo.$.name] == true")
+          div(ng-repeat="media in mediaInfo.MediaFile" ng-show="true")
+            div {{ media.OriginalFilename[0]}} 

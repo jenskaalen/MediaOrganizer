@@ -1,0 +1,28 @@
+﻿extends layout
+
+block content
+
+
+  div(ng-controller="handlerController") 
+
+    div(class="row")
+      div(class="btn btn-default col-sm-offset-10" ng-click="saveHandlers()") Save
+      div(class="col-sm-6 col-sm-offset-4")
+        div(class="h2") Handlers
+
+        div(ng-repeat="handler in mediaDirectories.Handlers.Handler")
+          div(class='h4') {{ handler.Name[0] }}
+          div SearchDirectories: {{ handler.SearchDirectories[0].SearchDirectory[0] }}
+          div ContentDirectory: {{ handler.ContentDirectory[0] }}
+          div Type: {{ handler.$.type }}
+          br
+          div(ng-if="handler.$.type == 'ShowMediaHandler'")
+            div(class="btn btn-default" ng-click="openDemo()") Click me to open dialog
+
+            div Shows ({{ handler.MatchPatterns[0].ShowMatcher.length }})
+            div(ng-repeat="showmatcher in handler.MatchPatterns[0].ShowMatcher")
+              div {{ showmatcher.$.show }}
+
+    script(type="text/ng-template" id="demoTemplate")
+      h1 test
+      p this is some content

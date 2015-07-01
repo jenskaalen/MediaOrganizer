@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MediaOrganizer", "MediaOrga
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MediaOrganizer.Tests", "MediaOrganizer.Tests\MediaOrganizer.Tests.csproj", "{6ECB98E2-8E90-408E-9659-E2A136890D3E}"
 EndProject
+Project("{9092AA53-FB77-4645-B42D-1CCCA6BD08BD}") = "MediaOrganizerWeb", "MediaOrganizerWeb\MediaOrganizerWeb.njsproj", "{8DFBD2ED-30FD-431B-9DCC-3E85B5C65EE1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{6ECB98E2-8E90-408E-9659-E2A136890D3E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6ECB98E2-8E90-408E-9659-E2A136890D3E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6ECB98E2-8E90-408E-9659-E2A136890D3E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8DFBD2ED-30FD-431B-9DCC-3E85B5C65EE1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8DFBD2ED-30FD-431B-9DCC-3E85B5C65EE1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8DFBD2ED-30FD-431B-9DCC-3E85B5C65EE1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8DFBD2ED-30FD-431B-9DCC-3E85B5C65EE1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
