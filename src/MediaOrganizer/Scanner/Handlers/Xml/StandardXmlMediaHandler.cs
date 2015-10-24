@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Xml.Linq;
 using MediaOrganizer.Model.Disk;
 using MediaOrganizer.Scanner.Matching;
@@ -119,7 +120,7 @@ namespace MediaOrganizer.Scanner.Handlers.Xml
 
         private string GetDataFolder()
         {
-            string path = System.Reflection.Assembly.GetExecutingAssembly().Location;
+            string path = Assembly.GetExecutingAssembly().Location;
             string folderpath = String.Format("{0}\\{1}", path, DataFolder);
             return folderpath;
         }

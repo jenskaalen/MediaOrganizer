@@ -2,15 +2,9 @@
 using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using System.Xml.Linq;
-using log4net.Repository.Hierarchy;
-using MediaOrganizer.Model;
 using MediaOrganizer.Scanner.Handlers;
 using MediaOrganizer.Scanner.Handlers.Xml;
-using MediaOrganizer.Scanner.Matching;
 
 namespace MediaOrganizer.Scanner
 {

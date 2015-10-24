@@ -4,8 +4,6 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Net.Http;
-using System.Text;
-using System.Threading.Tasks;
 using System.Xml.Linq;
 using MediaOrganizer.Model;
 using MediaOrganizer.Scanner.Matching;

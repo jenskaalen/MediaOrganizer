@@ -3,9 +3,6 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using log4net.Repository.Hierarchy;
 
 namespace MediaOrganizer.Modules
 {
@@ -30,8 +27,8 @@ namespace MediaOrganizer.Modules
 
         public void Start()
         {
-            List<string> filesToCheck= System.IO.Directory.GetFiles(_searchFolder, "*.rar", SearchOption.AllDirectories).ToList();
-            string[] zipFiles = System.IO.Directory.GetFiles(_searchFolder, "*.zip", SearchOption.AllDirectories);
+            List<string> filesToCheck= Directory.GetFiles(_searchFolder, "*.rar", SearchOption.AllDirectories).ToList();
+            string[] zipFiles = Directory.GetFiles(_searchFolder, "*.zip", SearchOption.AllDirectories);
             filesToCheck.AddRange(zipFiles);
 
             if (!File.Exists(PreviousUnzipsFile))
