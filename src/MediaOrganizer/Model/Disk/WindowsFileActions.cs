@@ -14,7 +14,7 @@ namespace MediaOrganizer.Model.Disk
             if (!Config.OverwriteExistingFiles && File.Exists(newpath))
                 return newpath;
 
-            File.Copy(filePath, newpath, true);
+            File.Copy(filePath, newpath, Config.OverwriteExistingFiles);
             return newpath;
         }
 
@@ -25,7 +25,7 @@ namespace MediaOrganizer.Model.Disk
             if (!Config.OverwriteExistingFiles && File.Exists(newpath))
                 return newpath;
 
-            File.Copy(filePath, newpath, true);
+            File.Copy(filePath, newpath, Config.OverwriteExistingFiles);
             return newpath;
         }
 
