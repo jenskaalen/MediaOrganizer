@@ -3,22 +3,21 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Xml.Linq;
-using MediaOrganizer.Model;
 using MediaOrganizer.Model.Disk;
 using MediaOrganizer.Scanner.Matching;
 
-namespace MediaOrganizer.Scanner.Handling
+namespace MediaOrganizer.Scanner.Handlers.Xml
 {
     /// <summary>
     /// Copies to a single ContentDirectory. Best used for movies and the like which do not need to be sorted to differnet subdirectories
     /// </summary>
-    public class StandardMediaHandler : MediaHandler
+    public class StandardXmlMediaHandler : XmlMediaHandler
     {
         public IContentMatcher ContentMatcher { get; private set; }
 
         private const string DataFolder = "DirectoryStates";
 
-        public StandardMediaHandler(string name, List<string> searchDirectories, IContentMatcher contentMatcher)
+        public StandardXmlMediaHandler(string name, List<string> searchDirectories, IContentMatcher contentMatcher)
         {
             ContentMatcher = contentMatcher;
             SearchDirectories = searchDirectories;
@@ -28,7 +27,7 @@ namespace MediaOrganizer.Scanner.Handling
             Initialize();
         }
 
-        public StandardMediaHandler(XElement handlerElement)
+        public StandardXmlMediaHandler(XElement handlerElement)
         {
             try
             {

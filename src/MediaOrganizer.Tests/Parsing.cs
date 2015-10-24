@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 using MediaOrganizer.Scanner;
+using MediaOrganizer.Scanner.Handlers.Xml;
 using MediaOrganizer.Scanner.Matching;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 

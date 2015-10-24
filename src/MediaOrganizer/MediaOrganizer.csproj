@@ -50,33 +50,34 @@
   <ItemGroup>
     <Compile Include="Config.cs" />
     <Compile Include="Model\Disk\WindowsFileActions.cs" />
+    <Compile Include="Model\IMediaStorage.cs" />
     <Compile Include="Model\RssFeed.cs" />
     <Compile Include="Modules\IModule.cs" />
     <Compile Include="Modules\ModuleRunner.cs" />
     <Compile Include="Modules\RssDownloader.cs" />
     <Compile Include="Modules\Unzipper.cs" />
-    <Compile Include="Scanner\HandlerXmlParser.cs" />
-    <Compile Include="Scanner\Handling\MediaHandler.cs" />
+    <Compile Include="Scanner\Handlers\Xml\HandlerXmlParser.cs" />
+    <Compile Include="Scanner\Handlers\Xml\XmlMediaHandler.cs" />
     <Compile Include="Scanner\Matching\AnyMatcher.cs" />
     <Compile Include="Scanner\Matching\CompositeMatcher.cs" />
     <Compile Include="Scanner\Matching\FileMatcher.cs" />
     <Compile Include="Scanner\Matching\FileNameMatcher.cs" />
     <Compile Include="Scanner\Matching\IContentMatcher.cs" />
     <Compile Include="Model\Disk\IFileActions.cs" />
-    <Compile Include="Scanner\Handling\IMediaHandler.cs" />
+    <Compile Include="Scanner\Handlers\IMediaHandler.cs" />
     <Compile Include="Model\Disk\IFilenameChanger.cs" />
     <Compile Include="Model\Disk\MediaFile.cs" />
     <Compile Include="Scanner\Matching\RegexContentMatcher.cs" />
     <Compile Include="Scanner\Matching\MultipleShowsMatcher.cs" />
-    <Compile Include="Scanner\Handling\ShowMediaHandler.cs" />
-    <Compile Include="Scanner\Handling\StandardMediaHandler.cs" />
+    <Compile Include="Scanner\Handlers\Xml\ShowMediaHandler.cs" />
+    <Compile Include="Scanner\Handlers\Xml\StandardXmlMediaHandler.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Scanner\IMediaScanner.cs" />
     <Compile Include="Scanner\Matching\ShowMatcher.cs" />
     <Compile Include="Scanner\Matching\ShowNameMatcher.cs" />
     <Compile Include="Scanner\Matching\SizeMatcher.cs" />
-    <Compile Include="Scanner\StandardMediaScanner.cs" />
+    <Compile Include="Scanner\XmlMediaScanner.cs" />
     <Compile Include="Logging.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using System.Xml.Linq;
 using log4net.Repository.Hierarchy;
 using MediaOrganizer.Scanner;
+using MediaOrganizer.Scanner.Handlers.Xml;
 using MediaOrganizer.Scanner.Matching;
 
 namespace MediaOrganizer.Modules

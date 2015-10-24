@@ -21,7 +21,7 @@ namespace MediaOrganizer
             var moduleRunner = new ModuleRunner();
             moduleRunner.RunModules();
 
-            IMediaScanner scanner = new StandardMediaScanner();
+            IMediaScanner scanner = new XmlMediaScanner();
             scanner.Scan();
 
             Logging.Log.Info("##DONE##");

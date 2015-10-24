@@ -1,8 +1,7 @@
 ﻿using System.Collections.Generic;
 using MediaOrganizer.Model.Disk;
-using MediaOrganizer.Scanner.Matching;
 
-namespace MediaOrganizer.Scanner.Handling
+namespace MediaOrganizer.Scanner.Handlers
 {
     public interface IMediaHandler
     {

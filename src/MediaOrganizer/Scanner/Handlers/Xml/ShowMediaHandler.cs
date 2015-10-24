@@ -1,22 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.Text;
 using System.Xml.Linq;
-using System.Xml.Serialization;
-using log4net.Repository.Hierarchy;
 using MediaOrganizer.Model.Disk;
 using MediaOrganizer.Scanner.Matching;
 
-namespace MediaOrganizer.Scanner.Handling
+namespace MediaOrganizer.Scanner.Handlers.Xml
 {
-    public class ShowHandler : MediaHandler
+    public class ShowHandler : XmlMediaHandler
     {
-        public List<string> Shows { get; private set; }
+        public List<string> Shows { get; }
 
-        private List<ShowMatcher> _showMatches; 
+        private readonly List<ShowMatcher> _showMatches; 
 
         public ShowHandler(IEnumerable<string> shows)
         {
@@ -28,6 +24,9 @@ namespace MediaOrganizer.Scanner.Handling
         {
             try
             {
+                if (handlerElement?.Element("Name") == null)
+                    throw new NullReferenceException(nameof(handlerElement));
+
                 Name = handlerElement.Element("Name").Value;
                 ContentDirectory = handlerElement.Element("ContentDirectory").Value;
                 SearchDirectories = new List<string>();

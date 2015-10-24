@@ -8,12 +8,13 @@ using System.Threading.Tasks;
 using System.Xml.Linq;
 using log4net.Repository.Hierarchy;
 using MediaOrganizer.Model;
-using MediaOrganizer.Scanner.Handling;
+using MediaOrganizer.Scanner.Handlers;
+using MediaOrganizer.Scanner.Handlers.Xml;
 using MediaOrganizer.Scanner.Matching;
 
 namespace MediaOrganizer.Scanner
 {
-    public class StandardMediaScanner : IMediaScanner
+    public class XmlMediaScanner : IMediaScanner
     {
         public List<IMediaHandler> Handlers { get; set; }
         private bool _initalized;
@@ -66,7 +67,7 @@ namespace MediaOrganizer.Scanner
                                 Handlers.Add(showHandler);
                                 break;
                             case "standardmediahandler":
-                                var standardHandler = new StandardMediaHandler(handlerElement);
+                                var standardHandler = new StandardXmlMediaHandler(handlerElement);
                                 Handlers.Add(standardHandler);
                                 break;
                             default:

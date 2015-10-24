@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using MediaOrganizer.Model;
-using MediaOrganizer.Scanner.Handling;
+using MediaOrganizer.Scanner.Handlers;
 
 namespace MediaOrganizer.Scanner
 {

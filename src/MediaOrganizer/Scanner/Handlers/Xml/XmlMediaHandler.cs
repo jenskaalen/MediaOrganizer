@@ -4,9 +4,9 @@ using System.Text;
 using System.Xml.Serialization;
 using MediaOrganizer.Model.Disk;
 
-namespace MediaOrganizer.Scanner.Handling
+namespace MediaOrganizer.Scanner.Handlers.Xml
 {
-    public abstract class MediaHandler : IMediaHandler
+    public abstract class XmlMediaHandler : IMediaHandler
     {
         public string Name { get; protected set; }
         public List<string> SearchDirectories { get; protected set; }
@@ -21,8 +21,7 @@ namespace MediaOrganizer.Scanner.Handling
         {
             RegisteredMedia = LoadRegisteredMedia();
         }
-
-
+        
         protected List<MediaFile> LoadRegisteredMedia()
         {
             if (!File.Exists(MediaStorageFile))
