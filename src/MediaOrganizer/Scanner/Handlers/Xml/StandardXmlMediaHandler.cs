@@ -12,8 +12,14 @@ namespace MediaOrganizer.Scanner.Handlers.Xml
     /// <summary>
     /// Copies to a single ContentDirectory. Best used for movies and the like which do not need to be sorted to differnet subdirectories
     /// </summary>
-    public class StandardXmlMediaHandler : XmlMediaHandler
+    public class StandardXmlMediaHandler : IMediaHandler
     {
+        public string Name { get; protected set; }
+        public List<string> SearchDirectories { get; protected set; }
+        public string ContentDirectory { get; set; }
+        public IFilenameChanger FilenameChanger { get; protected set; }
+        public IFileActions FileActions { get; protected set; }
+
         public IContentMatcher ContentMatcher { get; private set; }
 
         private const string DataFolder = "DirectoryStates";
@@ -63,21 +69,21 @@ namespace MediaOrganizer.Scanner.Handlers.Xml
             }
         }
 
-        public override void SearchMedia()
+        public void SearchMedia()
         {
-            base.SearchMedia();
+            string[] allSavedMedia = Directory.GetFiles(ContentDirectory, "*", SearchOption.AllDirectories);
+            
 
-            foreach (var directory in SearchDirectories)
+            foreach (var searchDirectory in SearchDirectories)
             {
-                var files = Directory.GetFiles(directory, "*", SearchOption.AllDirectories)
+                var files = Directory.GetFiles(searchDirectory, "*", SearchOption.AllDirectories)
                     .Where(file => 
                         ContentMatcher.Match(file)
-                    && RegisteredMedia.All(mediaFile => mediaFile.OriginalFilename != file));
+                    && allSavedMedia.All(mediaFile 
+                    => Path.GetFileName(mediaFile) != Path.GetFileName(file)));
 
                 RenameAndCopyFiles(files);
             }
-
-            SaveRegisteredMedia(RegisteredMedia);
         }
 
         private void RenameAndCopyFiles(IEnumerable<string> filenames)
@@ -91,11 +97,7 @@ namespace MediaOrganizer.Scanner.Handlers.Xml
 
                 FileActions.Copy(checkedFile, ContentDirectory);
 
-                Logging.Log.DebugFormat("Found match for {0}. Copying to {1}", checkedFile, ContentDirectory);
-
-                RegisteredMedia.Add(
-                    new MediaFile(filename, checkedFile)
-                    );
+                Logging.Log.InfoFormat("Found match for {0}. Copying to {1}", checkedFile, ContentDirectory);
             }
         }
 
@@ -108,8 +110,6 @@ namespace MediaOrganizer.Scanner.Handlers.Xml
 
                 if (!File.Exists(GetDataFile()))
                     CreateDataFile();
-
-                LoadRegisteredMedia();
             }
             catch (Exception ex)
             {

@@ -51,10 +51,10 @@
     <Compile Include="Config.cs" />
     <Compile Include="Model\Disk\WindowsFileActions.cs" />
     <Compile Include="Model\IMediaStorage.cs" />
-    <Compile Include="Model\RssFeed.cs" />
     <Compile Include="Modules\IModule.cs" />
     <Compile Include="Modules\ModuleRunner.cs" />
     <Compile Include="Modules\RssDownloader.cs" />
+    <Compile Include="Modules\RssFeed.cs" />
     <Compile Include="Modules\Unzipper.cs" />
     <Compile Include="Scanner\Handlers\Xml\HandlerXmlParser.cs" />
     <Compile Include="Scanner\Handlers\Xml\XmlMediaHandler.cs" />

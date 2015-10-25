@@ -8,8 +8,13 @@ using MediaOrganizer.Scanner.Matching;
 
 namespace MediaOrganizer.Scanner.Handlers.Xml
 {
-    public class ShowHandler : XmlMediaHandler
+    public class ShowHandler : IMediaHandler
     {
+        public string Name { get; }
+        public List<string> SearchDirectories { get; }
+        public string ContentDirectory { get; set; }
+        public IFileActions FileActions { get; }
+
         public List<string> Shows { get; }
 
         private readonly List<ShowMatcher> _showMatches; 
@@ -59,9 +64,10 @@ namespace MediaOrganizer.Scanner.Handlers.Xml
             }
         }
 
-        public override void SearchMedia()
+        public void SearchMedia()
         {
-            base.SearchMedia();
+            string[] allSavedMedia = Directory.GetFiles(ContentDirectory, "*", SearchOption.AllDirectories);
+
             InitializeShowDirectories();
 
             foreach (var directory in SearchDirectories)
@@ -74,7 +80,8 @@ namespace MediaOrganizer.Scanner.Handlers.Xml
                     {
                         var matchedFiles = files.
                                         Where(file => matcher.Match(file)
-                                        && RegisteredMedia.All(registeredMedia => registeredMedia.OriginalFilename != file)
+                                        && allSavedMedia.All(registeredMedia => 
+                                        Path.GetFileName(registeredMedia) !=  Path.GetFileName(file))
                                         ).ToList();
 
                         string show = matcher.Show;
@@ -88,8 +95,6 @@ namespace MediaOrganizer.Scanner.Handlers.Xml
                     }
                 }
             }
-
-            SaveRegisteredMedia(RegisteredMedia);
         }
 
         private void InitializeShowDirectories()
@@ -108,19 +113,10 @@ namespace MediaOrganizer.Scanner.Handlers.Xml
             foreach (string filename in filenames)
             {
                 string checkedFile = filename;
-
-                if (FilenameChanger != null)
-                    checkedFile = FilenameChanger.ChangedName(filename);
-
                 string newFile = Path.Combine(ContentDirectory, show);
 
                 Logging.Log.DebugFormat("Found match for {0} on show {1} and copying to {2}...", checkedFile, show, newFile);
-
-                string copiedFile = FileActions.Copy(checkedFile, newFile);
-
-                RegisteredMedia.Add(
-                    new MediaFile(filename, copiedFile)
-                    );
+                FileActions.Copy(checkedFile, newFile);
             }
         }
     }
