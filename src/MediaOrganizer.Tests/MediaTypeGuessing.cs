@@ -11,25 +11,25 @@ namespace MediaOrganizer.Tests
     [TestClass]
     public class MediaTypeGuessing
     {
-        [TestMethod]
-        public void Determine_if_movie_or_show()
-        {
-            throw new NotImplementedException();
-        }
+        //[TestMethod]
+        //public void Determine_if_movie_or_show()
+        //{
+        //    throw new NotImplementedException();
+        //}
 
-        [TestMethod]
-        public void Determine_show()
-        {
-            throw new NotImplementedException();
+        //[TestMethod]
+        //public void Determine_show()
+        //{
+        //    throw new NotImplementedException();
 
-            //string filename = "South.Park.S17E01.HDTV.x264-2HD";
-            //string regexMatcher = @"S\d{2}E\d{2}";
+        //    //string filename = "South.Park.S17E01.HDTV.x264-2HD";
+        //    //string regexMatcher = @"S\d{2}E\d{2}";
 
-            //var showNameGuesser = new ShowNameGuesser();
-            //string showName = showNameGuesser.Guess(filename);
+        //    //var showNameGuesser = new ShowNameGuesser();
+        //    //string showName = showNameGuesser.Guess(filename);
 
-            //Assert.AreEqual("South Park", showName);
-        }
+        //    //Assert.AreEqual("South Park", showName);
+        //}
     }
 
     public class ShowNameGuesser
