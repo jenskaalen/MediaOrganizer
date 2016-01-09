@@ -34,6 +34,17 @@ namespace MediaOrganizer.Scanner
             Handlers.ForEach(RunHandler);
         }
 
+        public void Scan(string filename)
+        {
+            if (_initalized == false)
+                Initialize();
+
+            foreach (IMediaHandler mediaHandler in Handlers)
+            {
+                mediaHandler.HandleFile(filename);
+            }
+        }
+
         private void RunHandler(IMediaHandler handler)
         {
             handler.SearchMedia();
@@ -59,10 +70,12 @@ namespace MediaOrganizer.Scanner
                             case "showmediahandler":
                                 var showHandler = new ShowHandler(handlerElement);
                                 Handlers.Add(showHandler);
+                                Logging.Log.DebugFormat("Loaded showhandler {0}", showHandler.Name);
                                 break;
                             case "standardmediahandler":
                                 var standardHandler = new StandardXmlMediaHandler(handlerElement);
                                 Handlers.Add(standardHandler);
+                                Logging.Log.DebugFormat("Loaded standard xml handler {0}", standardHandler.Name);
                                 break;
                             default:
                                 Logging.Log.WarnFormat("Handler type {0} not found", type);

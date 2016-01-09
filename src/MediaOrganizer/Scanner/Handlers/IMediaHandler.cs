@@ -10,5 +10,6 @@ namespace MediaOrganizer.Scanner.Handlers
         string ContentDirectory { get; set; }
         IFileActions FileActions { get; }
         void SearchMedia();
+        void HandleFile(string filename);
     }
 }

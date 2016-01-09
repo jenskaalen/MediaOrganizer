@@ -21,7 +21,12 @@ namespace MediaOrganizer.Scanner.Handlers.Xml
         {
             RegisteredMedia = LoadRegisteredMedia();
         }
-        
+
+        public void HandleFile(string filename)
+        {
+            throw new System.NotImplementedException();
+        }
+
         protected List<MediaFile> LoadRegisteredMedia()
         {
             if (!File.Exists(MediaStorageFile))

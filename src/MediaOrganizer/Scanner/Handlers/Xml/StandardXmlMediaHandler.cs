@@ -85,23 +85,28 @@ namespace MediaOrganizer.Scanner.Handlers.Xml
 
                     foreach (string file in files)
                     {
-                        try
-                        {
-                            if (ContentMatcher.Match(file))
-                            {
-                                RenameAndCopyFile(file);
-                            }
-                        }
-                        catch (Exception ex)
-                        {
-                            Logging.Log.Error("Failure handling file " + file, ex);
-                        }
+                        HandleFile(file);
                     }
                 }
                 catch (Exception ex)
                 {
                     Logging.Log.Error("Failed handling   directory " + searchDirectory, ex);
                 }
+            }
+        }
+
+        public void HandleFile(string filename)
+        {
+            try
+            {
+                if (ContentMatcher.Match(filename))
+                {
+                    RenameAndCopyFile(filename);
+                }
+            }
+            catch (Exception ex)
+            {
+                Logging.Log.Error("Failure handling file " + filename, ex);
             }
         }
 

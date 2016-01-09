@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Xml.Linq;
@@ -56,11 +57,9 @@ namespace MediaOrganizer.Scanner.Handlers.Xml
                 _showMatches = new List<ShowMatcher>();
                 //HandlerXmlParser.ParseContentMatches(handlerElement.Element("MatchPatterns")).Cast<ShowMatcher>().ToList();
 
-                HandlerXmlParser.ParseContentMatches(handlerElement.Element("MatchPatterns")).Cast<ShowMatcher>().ToList();
-                
-
+                _showMatches = HandlerXmlParser.ParseContentMatches(handlerElement.Element("MatchPatterns")).Cast<ShowMatcher>().ToList();
+               
                 Shows = _showMatches.Select(matcher => matcher.Show).ToList();
-
                 Shows = new List<string>();
 
                 FileActions = new WindowsFileActions();
@@ -105,6 +104,40 @@ namespace MediaOrganizer.Scanner.Handlers.Xml
             }
         }
 
+        public void HandleFile(string filename)
+        {
+            Logging.Log.DebugFormat("Handling file with {0} showmatches", _showMatches.Count);
+
+            foreach (ShowMatcher matcher in _showMatches)
+            {
+                try
+                {
+                    Logging.Log.DebugFormat("Matching against {0}", matcher.Show);
+                    string[] allSavedMedia = Directory.GetFiles(ContentDirectory, "*", SearchOption.AllDirectories);
+
+                    bool isMatch = matcher.Match(filename);
+                    bool isPreviouslyRegistered = allSavedMedia.Any(registeredMedia =>
+                        Path.GetFileName(registeredMedia) == Path.GetFileName(filename));
+                    string show = matcher.Show;
+                    
+                    if (isPreviouslyRegistered)
+                        Logging.Log.DebugFormat("File has been previously registered: {0}", filename);
+
+                    if (!isMatch)
+                        Logging.Log.DebugFormat("File is not a match for show: {0}", show);
+
+                    if (isMatch && !isPreviouslyRegistered)
+                    {
+                        RenameAndCopyFile(filename, show);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Logging.Log.Error("Failure running matches against ShowMatcher for " + matcher.Show, ex);
+                }
+            }
+        }
+
         private void InitializeShowDirectories()
         {
             foreach (string show in Shows)
@@ -127,12 +160,17 @@ namespace MediaOrganizer.Scanner.Handlers.Xml
         {
             foreach (string filename in filenames)
             {
-                string checkedFile = filename;
-                string newFile = Path.Combine(ContentDirectory, show);
-
-                Logging.Log.DebugFormat("Found match for {0} on show {1} and copying to {2}...", checkedFile, show, newFile);
-                FileActions.Copy(checkedFile, newFile);
+                RenameAndCopyFile(filename, show);
             }
+        }
+
+        private void RenameAndCopyFile(string filename, string show)
+        {
+            string checkedFile = filename;
+            string newFile = Path.Combine(ContentDirectory, show);
+
+            Logging.Log.DebugFormat("Found match for {0} on show {1} and copying to {2}...", checkedFile, show, newFile);
+            FileActions.Copy(checkedFile, newFile);
         }
     }
 }

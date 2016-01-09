@@ -7,5 +7,6 @@ namespace MediaOrganizer.Scanner
     {
         List<IMediaHandler> Handlers { get; set; }
         void Scan();
+        void Scan(string filename);
     }
 }
