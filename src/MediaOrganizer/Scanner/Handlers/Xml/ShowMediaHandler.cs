@@ -120,12 +120,6 @@ namespace MediaOrganizer.Scanner.Handlers.Xml
                         Path.GetFileName(registeredMedia) == Path.GetFileName(filename));
                     string show = matcher.Show;
                     
-                    if (isPreviouslyRegistered)
-                        Logging.Log.DebugFormat("File has been previously registered: {0}", filename);
-
-                    if (!isMatch)
-                        Logging.Log.DebugFormat("File is not a match for show: {0}", show);
-
                     if (isMatch && !isPreviouslyRegistered)
                     {
                         RenameAndCopyFile(filename, show);
