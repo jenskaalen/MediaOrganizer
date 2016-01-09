@@ -76,13 +76,32 @@ namespace MediaOrganizer.Scanner.Handlers.Xml
 
             foreach (var searchDirectory in SearchDirectories)
             {
-                var files = Directory.GetFiles(searchDirectory, "*", SearchOption.AllDirectories)
-                    .Where(file => 
-                        ContentMatcher.Match(file)
-                    && allSavedMedia.All(mediaFile 
-                    => Path.GetFileName(mediaFile) != Path.GetFileName(file)));
+                try
+                {
+                    var files = Directory.GetFiles(searchDirectory, "*", SearchOption.AllDirectories)
+                               .Where(file =>
+                                   allSavedMedia.All(mediaFile
+                               => Path.GetFileName(mediaFile) != Path.GetFileName(file)));
 
-                RenameAndCopyFiles(files);
+                    foreach (string file in files)
+                    {
+                        try
+                        {
+                            if (ContentMatcher.Match(file))
+                            {
+                                RenameAndCopyFile(file);
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            Logging.Log.Error("Failure handling file " + file, ex);
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Logging.Log.Error("Failed handling   directory " + searchDirectory, ex);
+                }
             }
         }
 
@@ -90,15 +109,20 @@ namespace MediaOrganizer.Scanner.Handlers.Xml
         {
             foreach (string filename in filenames)
             {
-                string checkedFile = filename;
-
-                if (FilenameChanger != null)
-                    checkedFile = FilenameChanger.ChangedName(filename);
-
-                FileActions.Copy(checkedFile, ContentDirectory);
-
-                Logging.Log.InfoFormat("Found match for {0}. Copying to {1}", checkedFile, ContentDirectory);
+                RenameAndCopyFile(filename);
             }
+        }
+
+        private void RenameAndCopyFile(string filename)
+        {
+            string checkedFile = filename;
+
+            if (FilenameChanger != null)
+                checkedFile = FilenameChanger.ChangedName(filename);
+
+            FileActions.Copy(checkedFile, ContentDirectory);
+
+            Logging.Log.InfoFormat("Found match for {0}. Copying to {1}", checkedFile, ContentDirectory);
         }
 
         private void Initialize()
@@ -121,7 +145,7 @@ namespace MediaOrganizer.Scanner.Handlers.Xml
         private string GetDataFolder()
         {
             string path = Assembly.GetExecutingAssembly().Location;
-            string folderpath = String.Format("{0}\\{1}", path, DataFolder);
+            string folderpath = Path.Combine(path, DataFolder);
             return folderpath;
         }
 
@@ -129,7 +153,7 @@ namespace MediaOrganizer.Scanner.Handlers.Xml
         {
             string file = String.Format("{0}.xml", Name);
             string folder = GetDataFolder();
-            string completePath = String.Format("{0}\\{1}", folder, file);
+            string completePath = Path.Combine(folder, file);
             return completePath;
         }
 

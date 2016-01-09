@@ -53,8 +53,16 @@ namespace MediaOrganizer.Scanner.Handlers.Xml
                 }
 
                 //TODO: volatile code, can easily crash. fix it
-                _showMatches =  HandlerXmlParser.ParseContentMatches(handlerElement.Element("MatchPatterns")).Cast<ShowMatcher>().ToList();
+                _showMatches = new List<ShowMatcher>();
+                //HandlerXmlParser.ParseContentMatches(handlerElement.Element("MatchPatterns")).Cast<ShowMatcher>().ToList();
+
+                HandlerXmlParser.ParseContentMatches(handlerElement.Element("MatchPatterns")).Cast<ShowMatcher>().ToList();
+                
+
                 Shows = _showMatches.Select(matcher => matcher.Show).ToList();
+
+                Shows = new List<string>();
+
                 FileActions = new WindowsFileActions();
             }
             catch (Exception ex)
@@ -101,10 +109,17 @@ namespace MediaOrganizer.Scanner.Handlers.Xml
         {
             foreach (string show in Shows)
             {
-                string showDirectory = Path.Combine(ContentDirectory, show);
+                try
+                {
+                    string showDirectory = Path.Combine(ContentDirectory, show);
 
-                if (!Directory.Exists(showDirectory))
-                    Directory.CreateDirectory(showDirectory);
+                    if (!Directory.Exists(showDirectory))
+                        Directory.CreateDirectory(showDirectory);
+                }
+                catch (Exception ex)
+                {
+                    Logging.Log.Error("Failed creating showdirectory for " + show);
+                }
             }
         }
 

@@ -18,22 +18,34 @@ namespace MediaOrganizer.Scanner.Handlers.Xml
 
             foreach (XElement matcherElement in element.Elements())
             {
-                switch (matcherElement.Name.LocalName.ToLower())
+                try
                 {
-                    case "showmatcher":
-                        ShowMatcher matcher = GetShowMatcher(matcherElement);
-                        matchers.Add(matcher);
-                        break;
-                    case "filematcher":
-                        FileMatcher filematcher = GetFileMatcher(matcherElement);
-                        matchers.Add(filematcher);
-                        break;
-                    default:
-                        throw new NotImplementedException();
+                    var matcher = ParseContentMatch(matcherElement);
+                    matchers.Add(matcher);
+                }
+                catch (Exception ex)
+                {
+                    Logging.Log.Error("Show element failed parsing: " + matcherElement.ToString());
+                    Logging.Log.Error(ex);
                 }
             }
 
             return matchers;
+        }
+
+        public static IContentMatcher ParseContentMatch(XElement matcherElement)
+        {
+            switch (matcherElement.Name.LocalName.ToLower())
+            {
+                case "showmatcher":
+                    ShowMatcher matcher = GetShowMatcher(matcherElement);
+                    return matcher;
+                case "filematcher":
+                    FileMatcher filematcher = GetFileMatcher(matcherElement);
+                    return filematcher;
+                default:
+                    throw new NotImplementedException();
+            }
         }
 
         private static FileMatcher GetFileMatcher(XElement element)
