@@ -60,7 +60,6 @@ namespace MediaOrganizer.Scanner.Handlers.Xml
                 _showMatches = HandlerXmlParser.ParseContentMatches(handlerElement.Element("MatchPatterns")).Cast<ShowMatcher>().ToList();
                
                 Shows = _showMatches.Select(matcher => matcher.Show).ToList();
-                Shows = new List<string>();
 
                 FileActions = new WindowsFileActions();
             }
